@@ -5,29 +5,31 @@ import java.util.Random;
 
 public class MatrixMultiplication {
 
-    public static int[][] getMultipliedArrayFromTwoEnteredArrays(int[][] simpleArray1, int rowsOfArray1, int columnsOfArray1, int[][] simpleArray2, int rowsOfArray2, int columnsOfArray2) {
-        int[][] resultOfTwoMultipliedArrays = new int[rowsOfArray1][columnsOfArray2];
-        if (columnsOfArray1 == rowsOfArray2) {
-            for (int i = 0; i < rowsOfArray1; i++) {
-                for (int j = 0; j < columnsOfArray2; j++) {
-                    for (int k = 0; k < rowsOfArray2; k++) {
+    public static int[][] getMultipliedArrayFromTwoEnteredArrays(int[][] simpleArray1, int[][] simpleArray2) {
+        if (simpleArray1[0].length == simpleArray2.length) {
+            int[][] resultOfTwoMultipliedArrays = new int[simpleArray1.length][simpleArray2[0].length];
+            for (int i = 0; i < simpleArray1.length; i++) {
+                for (int j = 0; j < simpleArray2[0].length; j++) {
+                    for (int k = 0; k < simpleArray1[0].length; k++) {
                         resultOfTwoMultipliedArrays[i][j] += simpleArray1[i][k] * simpleArray2[k][j];
                     }
                 }
             }
+            return resultOfTwoMultipliedArrays;
         } else {
-            String errorMessage=String.format("!!!Error: Multiplication not possible!!!");
-            String errorMessageArrayRuleText=String.format("REASON>>: Two Arrays can be multiplied by each other if and only if the number of columns of the first array is equal to the number of rows of the second array. :");
-            String errorMessageInfo1=String.format("Columns amount of Array 1 is>> %d", columnsOfArray1);
-            String errorMessageInfo2=String.format ("and differs from rows amount of Array 2 which is>> %d", rowsOfArray2);
-            String errorMessageAdviceText=String.format("%s","Please check your Arrays");
+            String errorMessage = String.format("!!!Error: Multiplication not possible!!!");
+            String errorMessageArrayRuleText = String.format("REASON>>: Two Arrays can be multiplied by each other if and only if the number of columns of the first array is equal to the number of rows of the second array. :");
+            String errorMessageInfo1 = String.format("Columns amount of Array 1 is>> %d", simpleArray1[0].length);
+            String errorMessageInfo2 = String.format("and differs from rows amount of Array 2 which is>> %d", simpleArray1.length);
+            String errorMessageAdviceText = String.format("%s", "Please check your Arrays");
             System.out.println(errorMessage);
             System.out.println(errorMessageArrayRuleText);
             System.out.println(errorMessageInfo1);
             System.out.println(errorMessageInfo2);
             System.out.println(errorMessageAdviceText);
+            return null;
         }
-        return resultOfTwoMultipliedArrays;
+
     }
 
     public static void printArray(int[][] arrayToBePrinted) {

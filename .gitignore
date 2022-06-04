@@ -9,3 +9,7 @@
 # Maven
 log/
 target/
+/src/main/java/META-INF/
+/target/
+/out/
+/.idea/

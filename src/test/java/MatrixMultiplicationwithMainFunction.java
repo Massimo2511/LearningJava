@@ -32,8 +32,10 @@ public class MatrixMultiplicationwithMainFunction {
         printArray(enteredArray2);
 
         /* Calling Multiplication basing on entered Array1 and Array2 */
-        int[][] resultOfTwoArraysMultiplication = getMultipliedArrayFromTwoEnteredArrays(enteredArray1, rowsOfArray1, columnsOfArray1, enteredArray2, rowsOfArray2, columnsOfArray2);
-        System.out.println("Result array :");
-        printArray(resultOfTwoArraysMultiplication);
+        int[][] resultOfTwoArraysMultiplication = getMultipliedArrayFromTwoEnteredArrays(enteredArray1, enteredArray2);
+        if (resultOfTwoArraysMultiplication != null) {
+            System.out.println("Result array :");
+            printArray(resultOfTwoArraysMultiplication);
+        }
     }
 }

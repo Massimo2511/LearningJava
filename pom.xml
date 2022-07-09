@@ -8,9 +8,23 @@
     <artifactId>LearningJava</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
+        <org.apache.commons.testversion>3.11</org.apache.commons.testversion>
+
     </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${org.apache.commons.testversion}</version>
+        </dependency>
+    </dependencies>
+
+
+
 
 </project>

@@ -1,34 +1,32 @@
 import com.start.learn.human.Human;
 
-import static com.start.learn.human.Human.printPersonInfo;
 
 public class HumanMainFunction {
 
     public static void main(String[] args) {
+        // TESTING DATA
+        //Person1 with name and surname
         Human humanPersonOne = new Human("Petryk", "Pyatochky", 1990, 11, 25);
-        String personInfo= Human.toString(humanPersonOne);
         System.out.println("Info about Person1 before name change");
-        printPersonInfo(personInfo);
+        System.out.println(humanPersonOne);
         humanPersonOne.setNewName("Vladislav");
-        personInfo=Human.toString(humanPersonOne);
         System.out.println("Info about Person1 after name change");
-        printPersonInfo(personInfo);
+        System.out.println(humanPersonOne + "\n");
 
+        //Person2 without name and surname
         Human humanPersonTwo = new Human(1990, 11, 25);
-        personInfo=Human.toString(humanPersonTwo);
-        printPersonInfo(personInfo);
+        System.out.println(humanPersonTwo+ "\n");
 
+        //Person3  with name and surname
         Human humanPersonThree = new Human("Pepi", "Longstock", 1990, 11, 25);
-        personInfo= Human.toString(humanPersonThree);
-        System.out.println("Info about Person2 before surname change");
-        printPersonInfo(personInfo);
+        System.out.println("Info about Person3 before surname change");
+        System.out.println(humanPersonThree);
         humanPersonThree.setNewSurname("Bigstock");
-        personInfo=Human.toString(humanPersonThree);
-        System.out.println("Info about Person2 after surname change");
-        printPersonInfo(personInfo);
+        System.out.println("Info about Person3 after surname change");
+        System.out.println(humanPersonThree);
 
+        //Person2 without name and surname
         Human humanPersonFour = new Human(1992, 12, 28);
-        personInfo=Human.toString(humanPersonFour);
-        printPersonInfo(personInfo);
+        System.out.println(humanPersonFour);
     }
 }

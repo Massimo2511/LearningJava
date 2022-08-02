@@ -51,7 +51,7 @@ public class Human {
         this.surnameOfHuman = newSurname;
     }
 
-    //Formatting data for output
+    @Override
     public String toString() {
         String generalPersonInfo;
         if (this.nameOfHuman != null && this.surnameOfHuman != null) {

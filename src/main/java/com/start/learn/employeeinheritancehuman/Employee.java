@@ -1,65 +1,60 @@
 package com.start.learn.employeeinheritancehuman;
 
 import java.time.LocalDate;
+import java.time.Period;
 import java.time.temporal.ChronoUnit;
 
 public class Employee extends Human {
 
-    private LocalDate hireDay;
-    private LocalDate salaryDay;
-    private String occupation;
+    private LocalDate hireDate;
+    private LocalDate salaryDate;
+    private Occupation occupation;
     private double salary;
-    private double employeeExperience;
+    private int employeeExperience;
     private double promotionPercent;
 
-    public Employee(String Name, String Surname,
-                    int yearOfBirth, int monthOfBirth, int dayOfBirth,
-                    String occupation,
+    public Employee(String name,
+                    String surname,
+                    int yearOfBirth,
+                    int monthOfBirth,
+                    int dayOfBirth,
+                    Occupation occupation,
                     double salary,
-                    double employeeExperience,
-                    double promotionPercent,
-                    int yearOfHireDay, int monthOfHireDay, int dayOfHireDay,
-                    int yearOfSalaryDay, int monthOfSalaryDay, int dayOfSalaryDay) {
-        super(Name, Surname, yearOfBirth, monthOfBirth, dayOfBirth);
-        this.occupation = occupation;
+                    int yearOfHireDay,
+                    int monthOfHireDay,
+                    int dayOfHireDay) {
+        super(name, surname, yearOfBirth, monthOfBirth, dayOfBirth);
         this.salary = salary;
-        this.employeeExperience = employeeExperience;
-        this.promotionPercent = promotionPercent;
-        hireDay = LocalDate.of(yearOfHireDay, monthOfHireDay, dayOfHireDay);
-        salaryDay = LocalDate.of(yearOfSalaryDay, monthOfSalaryDay, dayOfSalaryDay);
+        hireDate = LocalDate.of(yearOfHireDay, monthOfHireDay, dayOfHireDay);
+        salaryDate = LocalDate.now().withDayOfMonth(15);
+        this.occupation = occupation;
+        employeeExperience = 0;
+        promotionPercent = 0;
     }
-    enum Occupation {
-        DIRECTOR("DR"),
-        HR("HR"),
-        WORKER("WR"),
-        ENGINEER("EG");
-        private Occupation(String abbreviation) {
-            this.abbreviation = abbreviation;
-        }
-        public String getAbbreviation() {
-            return abbreviation;
-        }
-        private String abbreviation;
+
+    public LocalDate getHireDate() {
+        return hireDate;
     }
-    public LocalDate getHireDay() {
-        return hireDay;
+
+    public LocalDate getSalaryDate() {
+        return salaryDate;
     }
-    public LocalDate getSalaryDay() {
-        return salaryDay;
-    }
-    public String getOccupation() {
-        return occupation;
-    }
+
     public double getSalary() {
         return salary;
     }
+
     public double getEmployeeExperience() {
         return employeeExperience;
     }
+
     public double getPromotionPercent() {
+
         return promotionPercent;
     }
+
     public void salaryReview() {
+        employeeExperience = getCalculatedEmployeeExperience();
         if (employeeExperience > 1) {
             promotionPercent = 0;
         }
@@ -78,33 +73,47 @@ public class Employee extends Human {
         double raise = salary * promotionPercent / 100;
         salary += raise;
     }
+
+    @Override
     public String toString() {
-        return getClass().getName() + " [name = " + getName() + ",Surname = " + getSurname() + ",occupation = "+occupation+",salary = " + salary + ", hireDay = "
-                + hireDay + ",Employee experience = " +getEmployeeExperience() + " year(s)"+",Promotion Percentage: "+promotionPercent+ "%]"+",Salary Day: "+salaryDay;
+        return "\nEmployee Name = " + getName() + ", Employee Surname = " + getSurname() +
+                "\nOccupation = " + occupation + ",Salary = " + salary + "\nHire Day := " + hireDate + ", " +
+                "\nEmployee_experience = " + getEmployeeExperience() + " year(s)" + ",Promotion Percentage: " + promotionPercent + "%" +
+                "\nUpcoming Salary Date: " + salaryDate;
     }
-    public void defineSalaryDay() {
-        long dayRemainsToSalary = 0;
-        int todayDayOfMoth=0;
-        int generalSalaryDayOfTheMoth=15;
+    //Calculate amount of Days until salary day
+    public long getDaysUntilSalaryInCurrentMonth() {
+
+        long daysUntilSalary = 0;
         LocalDate todayDate = LocalDate.now();
-        todayDayOfMoth = todayDate.getDayOfMonth();
-        LocalDate firstDayOfTheMonth = todayDate.minusDays(todayDayOfMoth - 1);
-        LocalDate salaryDate = firstDayOfTheMonth.plusDays(14);
-        LocalDate salaryDateInNextMonth = salaryDate.plusDays(31);
-        if (todayDayOfMoth == generalSalaryDayOfTheMoth) {
+        LocalDate salaryDateInNextMonth = salaryDate.plusMonths(1);
+        if (todayDate.getDayOfMonth() == salaryDate.getDayOfMonth()) {
             System.out.println("TODAY is salary day");
+        } else if (salaryDate.getDayOfMonth() > todayDate.getDayOfMonth()) {
+            daysUntilSalary = ChronoUnit.DAYS.between(todayDate, salaryDate);
+        } else {
+            daysUntilSalary = ChronoUnit.DAYS.between(todayDate, salaryDateInNextMonth);
+            salaryDate = salaryDateInNextMonth;
         }
-        if (salaryDate.getDayOfMonth() > todayDate.getDayOfMonth()&&todayDayOfMoth != generalSalaryDayOfTheMoth) {
-            dayRemainsToSalary = ChronoUnit.DAYS.between(todayDate, salaryDate);
+        return daysUntilSalary;
+    }
+
+    public int getCalculatedEmployeeExperience() {
+        Period employeeExperience;
+        int calculatedEmployeeExperience = 0;
+        employeeExperience = hireDate.until(LocalDate.now());
+        calculatedEmployeeExperience = employeeExperience.getYears();
+        return calculatedEmployeeExperience;
+    }
+
+    @Override
+    public void getStatus() {
+        // super.getStatus();
+        if (this instanceof Employee) {
+            String status = "I am working on the project";
+            boolean isEmployee = this instanceof Employee;
+            System.out.println("isEmployee: " + isEmployee);
+            System.out.println(status);
         }
-        if (salaryDate.getDayOfMonth() < todayDate.getDayOfMonth()&&todayDayOfMoth != generalSalaryDayOfTheMoth){
-            dayRemainsToSalary = ChronoUnit.DAYS.between(todayDate, salaryDateInNextMonth);
-        }
-        System.out.println("First day ot current month is: " + firstDayOfTheMonth);
-        System.out.println("TODAY's date is: " + todayDate);
-        System.out.println("SALARY date is: " + salaryDate);
-        System.out.println("Days to salary: " + dayRemainsToSalary);
-        System.out.println("Next salary Date: " + salaryDateInNextMonth);
-        salaryDay=salaryDate;
     }
 }

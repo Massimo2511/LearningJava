@@ -1,43 +1,39 @@
 package com.start.learn.arrayrevert;
 
-import java.util.Arrays;
 import java.util.Scanner;
 import java.lang.System;
-import static java.lang.Math.random;
 
 public class ArrayRevert {
-    public static void arrayPrint(int[][] simpleArray, int fillingArrayStartedWith) {
-        System.out.println("Entered Array");
+    public static void printArray(int[][] simpleArray) {
         for (int i = 0; i < simpleArray.length; i++) {
             for (int j = 0; j < simpleArray[i].length; j++) {
-                simpleArray[i][j] = fillingArrayStartedWith;
-                fillingArrayStartedWith++;
                 System.out.print(simpleArray[i][j] + " ");
             }
             System.out.println();
         }
     }
 
-    public static void arrayRevert(int[][] simpleArray) {
-        System.out.println("Reverted Array");
-        for (int i = simpleArray.length - 1; i >= 0; i--) {
-            for (int j = simpleArray[i].length - 1; j >= 0; j--) {
-                System.out.print(simpleArray[i][j] + "  ");
+    public static int[][] getReversArray(int[][] simpleArray) {
+        int[][] reversedArray = new int[simpleArray.length][];
+        for (int i = 0; i < simpleArray.length; i++) {
+            int[] rowOfSimpleArray = simpleArray[simpleArray.length - i - 1];
+            reversedArray[i] = new int[rowOfSimpleArray.length];
+            for (int j = 0; j < rowOfSimpleArray.length; j++) {
+                reversedArray[i][j] = rowOfSimpleArray[rowOfSimpleArray.length - j - 1];
             }
-            System.out.println();
         }
+        return reversedArray;
     }
 
-    public static void main(String[] args) {
-        Scanner in = new Scanner(System.in);
-        System.out.println("Fill in size of Int array: ");
-        System.out.print("Enter number of rows ");
-        int rowsOfArray = in.nextInt();
-        System.out.print("Enter number of columns: ");
-        int columnsOfArray = in.nextInt();
-        int fillingArrayStartedWith = 1; // Array elements started from:
-        int[][] simpleArray = new int[rowsOfArray][columnsOfArray];
-        arrayPrint(simpleArray, fillingArrayStartedWith);
-        arrayRevert(simpleArray);
+    public static int[][] getArrayFilledWithRandomValues(int[][] enteredArray) {
+        int fillingArrayStartedWith = 1;
+        for (int i = 0; i < enteredArray.length; i++) {
+            for (int j = 0; j < enteredArray[i].length; j++) {
+                enteredArray[i][j] = fillingArrayStartedWith;
+                fillingArrayStartedWith++;
+            }
+        }
+        return enteredArray;
     }
+
 }

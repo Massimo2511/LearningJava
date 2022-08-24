@@ -49,13 +49,12 @@ public class Employee extends Human {
     }
 
     public double getPromotionPercent() {
-
         return promotionPercent;
     }
 
     public void salaryReview() {
         employeeExperience = getCalculatedEmployeeExperience();
-        if (employeeExperience > 1) {
+        if (employeeExperience < 1) {
             promotionPercent = 0;
         }
         if (employeeExperience >= 1 && employeeExperience < 2) {
@@ -76,14 +75,14 @@ public class Employee extends Human {
 
     @Override
     public String toString() {
-        return "\nEmployee Name = " + getName() + ", Employee Surname = " + getSurname() +
+        return "\nEmployee Name = " + this.name + ", Employee Surname = " + this.surname +
                 "\nOccupation = " + occupation + ",Salary = " + salary + "\nHire Day := " + hireDate + ", " +
-                "\nEmployee_experience = " + getEmployeeExperience() + " year(s)" + ",Promotion Percentage: " + promotionPercent + "%" +
-                "\nUpcoming Salary Date: " + salaryDate;
+                "\nEmployee_experience = " + employeeExperience + " year(s)" + ",Promotion Percentage: " + promotionPercent + "%" +
+                "\nUpcoming Salary Date: " + salaryDate+ "\nObject status:"+getStatus();
     }
+
     //Calculate amount of Days until salary day
     public long getDaysUntilSalaryInCurrentMonth() {
-
         long daysUntilSalary = 0;
         LocalDate todayDate = LocalDate.now();
         LocalDate salaryDateInNextMonth = salaryDate.plusMonths(1);
@@ -99,21 +98,15 @@ public class Employee extends Human {
     }
 
     public int getCalculatedEmployeeExperience() {
-        Period employeeExperience;
-        int calculatedEmployeeExperience = 0;
-        employeeExperience = hireDate.until(LocalDate.now());
-        calculatedEmployeeExperience = employeeExperience.getYears();
-        return calculatedEmployeeExperience;
+        Period employeeExperienceTime = Period.between(hireDate, LocalDate.now());
+        return employeeExperienceTime.getYears();
     }
 
     @Override
-    public void getStatus() {
+    public String getStatus() {
         // super.getStatus();
-        if (this instanceof Employee) {
-            String status = "I am working on the project";
-            boolean isEmployee = this instanceof Employee;
-            System.out.println("isEmployee: " + isEmployee);
-            System.out.println(status);
-        }
+        if (this instanceof Employee)
+            return "I am working on the project";
+        return "Object is not employee";
     }
 }

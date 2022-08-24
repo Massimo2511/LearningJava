@@ -31,7 +31,7 @@ public enum Occupation {
     public static Occupation fromString(String text) {
         if (text != null) {
             for (Occupation value : values()) {
-                if (text.equalsIgnoreCase(value.mainOccupation)|text.equalsIgnoreCase(value.additionalOccupation)) {
+                if (text.equalsIgnoreCase(value.mainOccupation)||text.equalsIgnoreCase(value.additionalOccupation)) {
                     return value;
                 }
             }

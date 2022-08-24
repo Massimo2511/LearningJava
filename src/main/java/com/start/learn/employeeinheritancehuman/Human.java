@@ -4,8 +4,8 @@ import java.time.LocalDate;
 
 public class Human {
 
-    private String name;
-    private String surname;
+    protected String name;
+    protected String surname;
     private final LocalDate dayOfBirth;
     private int humanId = assignId();
     private static int nextHumanId = 1;
@@ -50,22 +50,19 @@ public class Human {
         this.surname = newSurname;
     }
 
-    public String toString(Human person) {
+    public String toString() {
         String generalPersonInfo;
-        if (person.name != null && person.surname != null) {
-            generalPersonInfo = String.format("Human name and surname= %s %s , BirthDay: %tD ", person.getName(), person.getSurname(), person.getDayOfBirth());
+        if (this.name != null && this.surname != null) {
+            generalPersonInfo = String.format("Human name and surname= %s %s , BirthDay: %tD ,Object status: %S", this.name, this.surname, this.dayOfBirth, this.getStatus());
         } else {
-            generalPersonInfo = String.format("Human ID=%s, BirthDay: %tD ", person.getHumanId(), person.getDayOfBirth());
+            generalPersonInfo = String.format("Human ID=%s, BirthDay: %tD ,Object status: %S", this.humanId, this.dayOfBirth, this.getStatus());
         }
         return generalPersonInfo;
     }
 
-    public void getStatus() {
-        if (this instanceof Human) {
-            String status = "Do nothing for now";
-            boolean isHuman = this instanceof Human;
-            System.out.println("isHuman: " + isHuman);
-            System.out.println(status);
-        }
+    public String getStatus() {
+        if (this instanceof Human)
+            return "Do nothing for now";
+        return "Object is not Human";
     }
 }
